@@ -377,7 +377,13 @@ OS_THREAD_ENTRY(thread_do_response, thread_data)
 		char method[64];
 		char path[2048];
 		char http_version[32];
-		sscanf(line, "%s %s %s\r\n", method, path, http_version);
+
+		if(sscanf(line, "%s %s %s\r\n", method, path, http_version) == EOF)
+		{
+			const char *body = "<html><body><h1>400 - Bad Request</h1></body></html>";
+			send_text_response(client_socket, "text/html", 400, body);
+			break;
+		}
 
 
 		bool failed = false;
