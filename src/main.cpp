@@ -375,7 +375,7 @@ OS_THREAD_ENTRY(thread_do_response, thread_data)
 		os_timer_mark begin_respond = os_get_timer();
 
 		char method[64];
-		char path[128];
+		char path[2048];
 		char http_version[32];
 		sscanf(line, "%s %s %s\r\n", method, path, http_version);
 
